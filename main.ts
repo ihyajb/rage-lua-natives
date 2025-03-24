@@ -14,14 +14,13 @@ export class Main {
    */
   private static getNativeLink = (gametype: GamesType): string => {
     switch (gametype) {
+      default:
       case GamesType.GTA:
-        return "https://runtime.fivem.net/doc/natives.json";
+        return "https://static.cfx.re/natives/natives.json";
       case GamesType.RDR3:
         return "https://raw.githubusercontent.com/alloc8or/rdr3-nativedb-data/master/natives.json";
       case GamesType.Cfx:
-        return "https://runtime.fivem.net/doc/natives_cfx.json";
-      default:
-        return "https://runtime.fivem.net/doc/natives.json";
+        return "https://static.cfx.re/natives/natives_cfx.json";
     }
   };
 
