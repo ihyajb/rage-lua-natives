@@ -392,7 +392,7 @@ ${aliases ? `${aliases}\n` : ""}`;
     apiset: string = "client"
   ): string => {
     let baseDesc = description
-      ? description.replace(/^/gm, "---")
+      ? description.replace(/\r/g, "").replace(/^/gm, "---")
       : "---This native does not have an official description.";
 
     // Attach natives url;
