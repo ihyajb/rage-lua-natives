@@ -20,7 +20,7 @@ export class Main {
       case GamesType.RDR3:
         return "https://raw.githubusercontent.com/alloc8or/rdr3-nativedb-data/master/natives.json";
       case GamesType.Cfx:
-        return "https://static.cfx.re/natives/natives_cfx.json";
+        return "https://runtime.fivem.net/doc/natives_cfx.json";
     }
   };
 
