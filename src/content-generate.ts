@@ -391,6 +391,7 @@ ${aliases ? `${aliases}\n` : ""}`;
     namespace: string,
     apiset: string = "client"
   ): string => {
+    if (!apiset) apiset = "client";
     let baseDesc = description
       ? description.replace(/\r/g, "").replace(/^/gm, "---")
       : "---This native does not have an official description.";

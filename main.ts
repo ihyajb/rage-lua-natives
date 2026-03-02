@@ -1,4 +1,3 @@
-import * as request from "request";
 import { FilesBuilder } from "./src/files-builder";
 import { ContentGenerate } from "./src/content-generate";
 import * as figlet from "figlet";
@@ -53,28 +52,33 @@ export class Main {
     if (!json) return;
 
     return new Promise((resolve) => {
-      request.get(json, async (error, response, content) => {
-        const files = new FilesBuilder(dir);
-        const json = JSON.parse(content);
+      fetch(json)
+        .then((res) => res.json())
+        .then(async (content) => {
+          const files = new FilesBuilder(dir);
 
-        await files.init();
+          await files.init();
 
-        files.category(json);
+          files.category(content);
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const builder = new ContentGenerate(files).setDocumentationUrl(
-          Main.getNativeDocsUrl(gametype)
-        );
+          const builder = new ContentGenerate(files).setDocumentationUrl(
+            Main.getNativeDocsUrl(gametype)
+          );
 
-        try {
-          await builder.generateTemplate(json);
-        } catch (err) {
+          try {
+            await builder.generateTemplate(content);
+          } catch (err) {
+            term.red(err);
+          } finally {
+            resolve();
+          }
+        })
+        .catch((err) => {
           term.red(err);
-        } finally {
           resolve();
-        }
-      });
+        });
     });
   };
 
